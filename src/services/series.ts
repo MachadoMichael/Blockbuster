@@ -3,8 +3,7 @@ import { db } from "../libs/firebase";
 import { Serie } from "../types/Serie";
 
 export const getAll = async () => {
-  let seriesList: Serie[] = [];
-
+  const seriesList: Serie[] = [];
   const seriesFolder = collection(db, "series");
   const seriesSnapshot = await getDocs(seriesFolder);
 
@@ -32,4 +31,33 @@ export const getAll = async () => {
   });
 
   return seriesList;
+};
+
+export const searchSerie = async (series: Serie[], search: string) => {
+  const searchList: Serie[] = [];
+  series.forEach((doc) => {
+    if (doc.name.includes(search.toUpperCase()) === true) {
+      searchList.push({
+        season1: doc.season1,
+        season2: doc.season2,
+        season3: doc.season3,
+        season4: doc.season4,
+        season5: doc.season5,
+        season6: doc.season6,
+        season7: doc.season7,
+        season8: doc.season8,
+        season9: doc.season9,
+        season10: doc.season10,
+        description: doc.description,
+        image: doc.image,
+        name: doc.name,
+        type: doc.type,
+        url: doc.url,
+        release: doc.release,
+        genre: doc.genre,
+        favorite: false,
+      });
+    }
+  });
+  return searchList;
 };

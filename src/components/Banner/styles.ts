@@ -1,24 +1,16 @@
 import styled from "styled-components";
 
-export const ComingSoonBanners = styled.div`
-  width: 100%;
-  height: 60vh;
-  margin-top: 3%;
-  background-color: rgb(0, 50, 150);
+export const Container = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
 `;
 
-export const BannerBox = styled.div`
-  width: 20vw;
-  height: 50vh;
+export const Banner = styled.div`
+  width: 10vw;
+  height: 28vh;
   border: 2px solid black;
-  margin: 0.5% 0.5%;
+  margin: 10px 10px;
   box-shadow: 1px 1px 5px black;
-  display: flex;
-  flex-direction: column;
-
   &:hover {
     border: 2px solid rgb(250, 180, 0);
   }
@@ -29,55 +21,45 @@ export const Image = styled.div<{ url?: string }>`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  height: 90%;
-  width: 100%;
-  border-radius: 2px;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  height: 80%;
+  width: 205px;
 `;
 
-export const NotAvailable = styled.div`
-  background-color: brown;
-  width: 25em;
-  height: 10%;
-  text-align: center;
-  font-size: 30px;
-  margin: auto;
-  opacity: 0.8;
-`;
-
-export const Info = styled.div`
+export const Controllers = styled.div`
   background-color: rgba(7, 7, 7, 0.9);
+  height: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 10%;
 `;
 
-export const Soon = styled.h3`
-  display: none;
+export const Name = styled.h4`
   color: white;
-  ${BannerBox}:hover & {
-    display: block;
-  }
-`;
-
-export const Name = styled.h3`
-  color: white;
-  font-size: 20px;
-
-  ${BannerBox}:hover & {
+  margin: 0;
+  font-weight: bold;
+  text-align: center;
+  ${Banner}:hover & {
     display: none;
   }
 `;
 
-export const Release = styled.h3`
+export const Button = styled.button<{ background?: string }>`
+  background-color: ${(props) =>
+    props.background ? props.background : "rgb(0, 50, 150);"};
+  color: ${(props) => (props.color ? props.color : "white")};
+  border-radius: 2px;
+  border: none;
+  font-size: 14px;
+  padding: 3px 15px;
+  cursor: pointer;
+  box-shadow: 0px 0px 5px black;
+  font-weight: bold;
   display: none;
-  color: white;
-  font-size: 20px;
-  ${BannerBox}:hover & {
-    display: block;
+
+  ${Banner}:hover & {
+    display: inline;
+  }
+  &:hover {
+    border: 2px solid white;
   }
 `;

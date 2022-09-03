@@ -1,12 +1,13 @@
+import * as C from "./styles";
 import { Movie } from "../../types/Movie";
 import { Serie } from "../../types/Serie";
 import { Slider } from "../Slider/Slider";
-import * as C from "./styles";
-import { SwiperSlide } from "swiper/react";
+import { Player } from "../Player";
 import { useState } from "react";
+import { SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
-import { Navigation, Pagination } from "swiper";
 import "../../App.css";
 
 type Props = {
@@ -37,7 +38,6 @@ export const Showcase = ({
   marginBox,
 }: Props) => {
   const [modal, setModal] = useState("none");
-
   const [infoData, setInfoData] = useState<Serie | Movie>({
     season1: undefined,
     season2: undefined,
@@ -58,13 +58,6 @@ export const Showcase = ({
     genre: "genre",
     favorite: false,
   });
-
-  const closeModal = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    let modalArea = e.currentTarget;
-    if (modalArea === e.target) {
-      setModal("none");
-    }
-  };
 
   const showcase = data.map((item, index) => {
     return (
@@ -117,21 +110,12 @@ export const Showcase = ({
 
   return (
     <C.Carousel height={height}>
-      <C.Modal onClick={(e) => closeModal(e)} display={modal}>
-        <C.Info>
-          <C.Trailer src={infoData.url}></C.Trailer>
-          <C.DataMovie>
-            <C.TitleInfo>{infoData.name}</C.TitleInfo>
-            <C.Description>{infoData.description}</C.Description>
-            <C.Controllers>
-              <C.Button onClick={() => (infoData.favorite = true)}>
-                MINHA LISTA
-              </C.Button>
-              <C.Button onClick={() => setModal("none")}>X</C.Button>
-            </C.Controllers>
-          </C.DataMovie>
-        </C.Info>
-      </C.Modal>
+      <Player
+        modal={modal}
+        setModal={setModal}
+        infoData={infoData}
+        setInfoData={setInfoData}
+      ></Player>
       <Slider settings={settings}>{showcase}</Slider>
     </C.Carousel>
   );

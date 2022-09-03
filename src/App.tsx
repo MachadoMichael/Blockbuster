@@ -6,37 +6,27 @@ import * as MoviesService from "./services/movies";
 import * as SeriesService from "./services/series";
 import { Favorites } from "./components/Favorites";
 import * as C from "./App.styles";
-import { List } from "./components/List";
 import { Homepage } from "./components/Homepage";
-import { ShowRoom } from "./components/ShowRoom";
+import { Showroom } from "./components/Showroom";
+import { Search } from "./components/Search";
+import { Header } from "./components/Header";
 
 const App = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [series, setSeries] = useState<Serie[]>([]);
 
   useEffect(() => {
-    const getMovies = async () => {
+    const getData = async () => {
       setMovies(await MoviesService.getAll());
-    };
-    getMovies();
-
-    const getSeries = async () => {
       setSeries(await SeriesService.getAll());
     };
-    getSeries();
+    getData();
   }, []);
 
   return (
     <Router>
       <C.Container>
-        <C.Header>
-          <C.Logo src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Blockbuster_logo.svg/594px-Blockbuster_logo.svg.png"></C.Logo>
-          <C.Nav>
-            <List nav={["Inicio", "Series", "Filmes", "Favoritos"]}></List>
-            <C.Search></C.Search>
-          </C.Nav>
-        </C.Header>
-
+        <Header></Header>
         <Routes>
           <Route
             path="/"
@@ -55,11 +45,22 @@ const App = () => {
           ></Route>
           <Route
             path="/Filmes"
-            element={<ShowRoom dataBase={movies} setDataBase={setMovies} />}
+            element={<Showroom dataBase={movies} setDataBase={setMovies} />}
           ></Route>
           <Route
             path="/Series"
-            element={<ShowRoom dataBase={series} setDataBase={setSeries} />}
+            element={<Showroom dataBase={series} setDataBase={setSeries} />}
+          ></Route>
+          <Route
+            path="/Pesquisa"
+            element={
+              <Search
+                movies={movies}
+                series={series}
+                setMovies={setMovies}
+                setSeries={setSeries}
+              />
+            }
           ></Route>
         </Routes>
       </C.Container>

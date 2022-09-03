@@ -1,6 +1,6 @@
 import * as C from "./styles";
 import { Movie } from "../../types/Movie";
-import { Banner } from "../Banner";
+import { Releases } from "../Releases";
 import { useState, useEffect } from "react";
 import { Showcase } from "../Showcase";
 import { Serie } from "../../types/Serie";
@@ -12,10 +12,10 @@ type Props = {
     | React.Dispatch<React.SetStateAction<Serie[]>>;
 };
 
-export const ShowRoom = ({ dataBase, setDataBase }: Props) => {
+export const Showroom = ({ dataBase, setDataBase }: Props) => {
   const [unReleased, setUnReleased] = useState<Movie[] | Serie[]>([]);
   const [released, setReleased] = useState<Movie[] | Serie[]>([]);
-  const [previewMode, setPreviewMode] = useState(true);
+  const [previewMode, setPreviewMode] = useState(false);
   const [filter, setFilter] = useState("all");
   const [filtered, setFiltered] = useState<Movie[] | Serie[]>([]);
 
@@ -53,7 +53,7 @@ export const ShowRoom = ({ dataBase, setDataBase }: Props) => {
   return (
     <C.Container>
       {previewMode === false ? (
-        <Banner unReleased={unReleased}></Banner>
+        <Releases unReleased={unReleased}></Releases>
       ) : (
         <C.FilterBox>
           <C.GenreFilter>

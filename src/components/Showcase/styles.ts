@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Carousel = styled.div<{ height: number }>`
   width: 100vw;
-  height: ${(props)=> props.height}vh;
+  height: ${(props) => props.height}vh;
   text-align: center;
   display: flex;
   background-color: rgb(250, 180, 0);
@@ -81,57 +81,4 @@ export const Button = styled.button<{ background?: string; color?: string }>`
   &:hover {
     border: 2px solid white;
   }
-`;
-
-export const Modal = styled.div<{ display: string }>`
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(15, 15, 15, 0.8);
-  z-index: 2;
-  display: ${(props) => props.display};
-  align-items: center;
-  justify-content: center;
-`;
-export const Info = styled.div`
-  border-radius: 5px;
-  width: 70vw;
-  height: 80vh;
-  background-color: black;
-  display: flex;
-  justify-content: center;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 1%;
-  box-shadow: 2px 2px 10px rgb(0, 0, 0);
-`;
-
-export const Trailer = styled.iframe`
-  height: 80%;
-  width: 100%;
-  background-color: black;
-  border: none;
-  border-radius: 5px;
-`;
-
-export const DataMovie = styled.div`
-  background-color: rgb(0, 40, 150);
-  opacity: 1;
-  text-align: justify;
-  box-sizing: border-box;
-  padding: 20px;
-  color: white;
-  border-radius: 5px;
-`;
-
-export const TitleInfo = styled.h3`
-  margin: 0;
-`;
-
-export const Description = styled.p<{ display?: string }>`
-  display: ${(props) => props.display};
-  width: 100%;
-  margin: 10px 0;
 `;

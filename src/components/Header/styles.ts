@@ -1,16 +1,5 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  min-width: 100vw;
-  min-height: 100vh;
-  position: fixed;
-  top: 0;
-  background-color: rgb(0, 50, 150);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 export const Header = styled.div`
   min-width: 100vw;
   position: fixed;
@@ -36,5 +25,7 @@ export const Nav = styled.ul`
 `;
 
 export const SearchInput = styled.input``;
+
+export const SearchButton = styled.button``;
 
 export const Form = styled.form``;
