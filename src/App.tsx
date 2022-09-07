@@ -4,7 +4,7 @@ import { Movie } from "./types/Movie";
 import { Serie } from "./types/Serie";
 import * as MoviesService from "./services/movies";
 import * as SeriesService from "./services/series";
-import { Favorites } from "./components/Favorites";
+import { Favoritespage } from "./components/Favoritespage";
 import * as C from "./App.styles";
 import { Homepage } from "./components/Homepage";
 import { Showroom } from "./components/Showroom";
@@ -32,10 +32,21 @@ const App = () => {
             path="/"
             element={<Homepage dataBase={movies} setDataBase={setMovies} />}
           ></Route>
+
+          <Route
+            path="/Series"
+            element={<Showroom dataBase={series} setDataBase={setSeries} />}
+          ></Route>
+
+          <Route
+            path="/Filmes"
+            element={<Showroom dataBase={movies} setDataBase={setMovies} />}
+          ></Route>
+
           <Route
             path="/Favoritos"
             element={
-              <Favorites
+              <Favoritespage
                 movies={movies}
                 series={series}
                 setMovies={setMovies}
@@ -43,14 +54,7 @@ const App = () => {
               />
             }
           ></Route>
-          <Route
-            path="/Filmes"
-            element={<Showroom dataBase={movies} setDataBase={setMovies} />}
-          ></Route>
-          <Route
-            path="/Series"
-            element={<Showroom dataBase={series} setDataBase={setSeries} />}
-          ></Route>
+
           <Route
             path="/Pesquisa"
             element={

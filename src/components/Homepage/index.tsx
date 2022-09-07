@@ -3,6 +3,7 @@ import { Movie } from "../../types/Movie";
 import { useEffect, useState } from "react";
 import { Showcase } from "../Showcase";
 import { Serie } from "../../types/Serie";
+import { Player } from "../Player";
 
 type Props = {
   dataBase: Movie[] | Serie[];
@@ -11,6 +12,18 @@ type Props = {
 
 export const Homepage = ({ dataBase, setDataBase }: Props) => {
   const [selectMovie, setSelectMovie] = useState(0);
+  const [modal, setModal] = useState("none");
+  const [infoData, setInfoData] = useState<Serie | Movie>({
+    seasons: {},
+    description: "description",
+    image: "image",
+    name: "name",
+    type: "type",
+    url: "url",
+    release: 2014,
+    genre: "genre",
+    favorite: false,
+  });
 
   useEffect(() => {
     let random = parseInt((Math.random() * 10).toFixed(1));
@@ -24,7 +37,14 @@ export const Homepage = ({ dataBase, setDataBase }: Props) => {
           <C.Info>
             <C.Name>{item.name}</C.Name>
             <C.Description>{item.description}</C.Description>
-            <C.Button>PLAY</C.Button>
+            <C.Button
+              onClick={() => {
+                setModal("flex");
+                setInfoData(item);
+              }}
+            >
+              PLAY
+            </C.Button>
             <C.Button
               onClick={() => {
                 if (item.favorite === false) {
@@ -59,13 +79,20 @@ export const Homepage = ({ dataBase, setDataBase }: Props) => {
 
   return (
     <C.Container>
+      <Player
+        modal={modal}
+        setModal={setModal}
+        infoData={infoData}
+        setInfoData={setInfoData}
+      ></Player>
       <C.Highlight>{midia}</C.Highlight>
       <Showcase
+        sliderPerViews={6}
         marginBox={[50, 62]}
         height={30}
+        width={100}
         data={dataBase}
         setDataBase={setDataBase}
-        title="Movies"
         setSelectMovie={setSelectMovie}
       ></Showcase>
     </C.Container>

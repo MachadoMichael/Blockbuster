@@ -1,39 +1,70 @@
 import * as C from "./styles";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Serie } from "../../types/Serie";
 import { Movie } from "../../types/Movie";
 
 type Props = {
   modal: string;
   setModal: React.Dispatch<React.SetStateAction<string>>;
-  infoData: Movie | Serie;
+  infoData: Serie | Movie;
   setInfoData:
     | React.Dispatch<React.SetStateAction<Serie>>
     | React.Dispatch<React.SetStateAction<Movie>>;
 };
 
 export const Player = ({ modal, setModal, infoData, setInfoData }: Props) => {
-  const [displayScreenSeries, setDisplayScreenSeries] = useState("none");
-  const [displaySeasonsSeries, setDisplaySeasonsSeries] = useState("block");
-  const [serieData, setSerieData] = useState<Serie>();
-  const [movieData, setMovieData] = useState<Movie>();
-
-  useEffect(() => {
-    infoData.type === "movie" ? setMovieData(infoData) : setSerieData(infoData);
-  }, [infoData]);
+  const [urlEpisode, setUrlEpisode] = useState<string>();
+  const [display, setDisplay] = useState("seasons");
+  const [estruturaEpisodes, setEstruturaEpisodes] = useState<JSX.Element[]>();
 
   const closeModal = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     let modalArea = e.currentTarget;
     if (modalArea === e.target) {
       setModal("none");
+      setDisplay("seasons");
     }
   };
 
-  if (infoData.type === "movie") {
+  let InfoDataSeasons = Object.values(infoData)[0];
+  const seasonData = Object.values(InfoDataSeasons);
+  const seasons = seasonData.map((season: Array<string>, index) => {
+    return (
+      <C.BoxButton
+        key={index}
+        onClick={() => {
+          setDisplay("episodes");
+          readEpisodes(season);
+        }}
+      >
+        Season {index + 1}
+      </C.BoxButton>
+    );
+  });
+
+  const readEpisodes = (season: Array<string>) => {
+    const episodes = season.map((episode, index) => {
+      return (
+        <C.BoxButton
+          key={index}
+          onClick={() => {
+            setDisplay("screen");
+            setUrlEpisode(episode);
+          }}
+        >
+          {" "}
+          Episode {index + 1}
+        </C.BoxButton>
+      );
+    });
+
+    setEstruturaEpisodes(episodes);
+  };
+
+  if (infoData.type === "movie" && infoData) {
     return (
       <C.Modal onClick={(e) => closeModal(e)} display={modal}>
         <C.Info>
-          <C.Screen display="block" src={infoData.url}></C.Screen>
+          <C.Screen src={infoData.url}></C.Screen>
           <C.DataMovie>
             <C.TitleInfo>{infoData.name}</C.TitleInfo>
             <C.Description>{infoData.description}</C.Description>
@@ -48,36 +79,31 @@ export const Player = ({ modal, setModal, infoData, setInfoData }: Props) => {
       </C.Modal>
     );
   }
-  if (infoData.type === "serie" && serieData) {
-    const Seasonx = Object.keys(serieData).map((item, index) => {
-      if (item.includes("season")) {
-  
-        if(serieData)
-        return <C.Season>{item.toUpperCase()}</C.Season>;
-      } else {
-        return <div></div>;
-      }
-    });
 
+  if (infoData.type === "serie") {
     return (
       <C.Modal onClick={(e) => closeModal(e)} display={modal}>
         <C.Info>
-          <C.Screen display={displayScreenSeries} src={infoData.url}></C.Screen>
-          <C.ScreenBackground display={displaySeasonsSeries}>
-            {Seasonx}
-            {/* <C.SeasonsBackground>
-            {serieData.season1 !== undefined ? <C.Season>SEASON 1</C.Season> : ""}
-            {serieData.season2 !== undefined ? <C.Season>SEASON 2</C.Season> : ""}
-            {serieData.season3 !== undefined ? <C.Season>SEASON 3</C.Season> : ""}
-            {serieData.season4 !== undefined ? <C.Season>SEASON 4</C.Season> : ""}
-            {serieData.season5 !== undefined ? <C.Season>SEASON 5</C.Season> : ""}
-            {serieData.season6 !== undefined ? <C.Season>SEASON 6</C.Season> : ""}
-            {serieData.season7 !== undefined ? <C.Season>SEASON 7</C.Season> : ""}
-            {serieData.season8 !== undefined ? <C.Season>SEASON 8</C.Season> : ""}
-            {serieData.season9 !== undefined ? <C.Season>SEASON 9</C.Season> : ""}
-            {serieData.season10 !== undefined ? <C.Season>SEASON 10</C.Season> : ""}
-            </C.SeasonsBackground> */}
-          </C.ScreenBackground>
+          {display === "seasons" ? (
+            <C.BackgroundButtons>{seasons}</C.BackgroundButtons>
+          ) : (
+            <div></div>
+          )}
+
+          {display === "episodes" ? (
+            <C.BackgroundButtons>
+              {estruturaEpisodes !== [] ? estruturaEpisodes : <div></div>}
+            </C.BackgroundButtons>
+          ) : (
+            <div></div>
+          )}
+
+          {display === "screen" ? (
+            <C.Screen src={urlEpisode}></C.Screen>
+          ) : (
+            <div></div>
+          )}
+
           <C.DataMovie>
             <C.TitleInfo>{infoData.name}</C.TitleInfo>
             <C.Description>{infoData.description}</C.Description>

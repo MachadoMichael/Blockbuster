@@ -8,7 +8,7 @@ type Props = {
 };
 
 export const Releases = ({ unReleased }: Props) => {
-  console.log(`banner`)
+  console.log(`banner`);
   const [unReleasedBanners, setUnReleasedBanner] = useState<Number[]>([]);
 
   useEffect(() => {
@@ -76,7 +76,7 @@ export const Releases = ({ unReleased }: Props) => {
         </C.BannerBox>
       );
     } else {
-      <div></div>;
+      return <div></div>;
     }
   });
 

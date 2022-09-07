@@ -1,9 +1,12 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100vw;
   height: 100vh;
-  display: block;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
 `;
 
 export const FilterBox = styled.div`
@@ -19,43 +22,23 @@ export const MovieSwiper = styled.div<{ margin: number }>`
   margin-top: ${(props) => props.margin}%;
 `;
 
-export const Subtitle = styled.div<{ display: string }>`
+export const SubtitleBackground = styled.div<{
+  display: string;
+  margin: number;
+}>`
   display: ${(props) => props.display};
   justify-content: center;
   align-items: center;
   text-align: center;
   width: 100%;
   height: 6vh;
-  margin: 0;
+  margin-top: ${(props) => props.margin}%;
   background-color: rgba(5, 5, 5, 0.9);
   color: white;
   padding: 0;
   font-size: 30px;
   text-align: center;
   font-weight: bolder;
-`;
-
-const UpDown = keyframes`
-0%{
-  transform: translateY(-5px)
-}
-50%{
-  transform: translateY(5px);
-}
-100%{
-  transform: translateY(-5px)
-}
-`;
-
-export const Arrow = styled.div`
-  animation: ${UpDown} 2s linear infinite;
-  margin-left: 1%;
-
-  &:hover {
-    cursor: pointer;
-    box-shadow: 0px 0px 2px white;
-    border-radius: 5px;
-  }
 `;
 
 export const GenreFilter = styled.div`
@@ -76,6 +59,7 @@ export const GenreFilter = styled.div`
 
 export const Form = styled.form`
   display: flex;
+  margin: 0 1%;
 `;
 
 export const SelectFilter = styled.select`
@@ -96,11 +80,13 @@ export const Option = styled.option`
   background-color: rgb(0, 50, 150);
 `;
 
-export const Button = styled.button<{ background?: string; color?: string }>`
+export const Button = styled.button`
   background-color: rgb(0, 50, 150);
   color: white;
   border-radius: 2px;
   border: none;
+  width: 6vw;
+  height: 3vh;
   font-size: 14px;
   padding: 3px 15px;
   cursor: pointer;

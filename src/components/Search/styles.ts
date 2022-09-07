@@ -14,6 +14,7 @@ export const Title = styled.h1`
   color: rgb(0, 50, 150);
   text-shadow: 1px 1px 1px white;
   background-color: rgb(250, 180, 0);
+  margin-top: 1%;
 `;
 
 export const Favorites = styled.div`

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-export const Carousel = styled.div<{ height: number }>`
-  width: 100vw;
+export const Carousel = styled.div<{ height: number; width: number }>`
+  width: ${(props) => props.width}vw;
   height: ${(props) => props.height}vh;
   text-align: center;
   display: flex;

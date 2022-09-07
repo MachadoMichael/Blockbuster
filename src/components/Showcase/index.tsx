@@ -12,43 +12,28 @@ import "../../App.css";
 
 type Props = {
   data: Movie[] | Serie[];
-  title?: string;
   setDataBase?:
     | React.Dispatch<React.SetStateAction<Movie[]>>
     | React.Dispatch<React.SetStateAction<Serie[]>>;
   setSelectMovie?: React.Dispatch<React.SetStateAction<number>> | any;
   height: number;
+  width: number;
   marginBox: number[];
-};
-
-const settings = {
-  spaceBetween: 0,
-  slidesPerView: 6,
-  navigation: true,
-  modules: [Navigation, Pagination],
-  pagination: { clickable: true },
+  sliderPerViews: number;
 };
 
 export const Showcase = ({
   setDataBase,
   data,
-  title,
   setSelectMovie,
   height,
+  width,
   marginBox,
+  sliderPerViews,
 }: Props) => {
   const [modal, setModal] = useState("none");
   const [infoData, setInfoData] = useState<Serie | Movie>({
-    season1: undefined,
-    season2: undefined,
-    season3: undefined,
-    season4: undefined,
-    season5: undefined,
-    season6: undefined,
-    season7: undefined,
-    season8: undefined,
-    season9: undefined,
-    season10: undefined,
+    seasons: {},
     description: "description",
     image: "image",
     name: "name",
@@ -58,6 +43,14 @@ export const Showcase = ({
     genre: "genre",
     favorite: false,
   });
+
+  const settings = {
+    spaceBetween: 0,
+    slidesPerView: sliderPerViews,
+    navigation: true,
+    modules: [Navigation, Pagination],
+    pagination: { clickable: true },
+  };
 
   const showcase = data.map((item, index) => {
     return (
@@ -109,7 +102,7 @@ export const Showcase = ({
   });
 
   return (
-    <C.Carousel height={height}>
+    <C.Carousel height={height} width={width}>
       <Player
         modal={modal}
         setModal={setModal}

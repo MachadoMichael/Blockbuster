@@ -2,9 +2,7 @@ import * as C from "./styles";
 import { Movie } from "../../types/Movie";
 import { Serie } from "../../types/Serie";
 import { useEffect, useState } from "react";
-import { Player } from "../Player";
 import { Banner } from "../Banner";
-
 type Props = {
   setMovies: React.Dispatch<React.SetStateAction<Movie[]>>;
   setSeries: React.Dispatch<React.SetStateAction<Serie[]>>;
@@ -12,7 +10,12 @@ type Props = {
   series: Serie[];
 };
 
-export const Favorites = ({ movies, series, setMovies, setSeries }: Props) => {
+export const Favoritespage = ({
+  movies,
+  series,
+  setMovies,
+  setSeries,
+}: Props) => {
   const [favoritesMovies, setFavoritesMovies] = useState<Movie[]>([]);
   const [favoritesSeries, setFavoritesSeries] = useState<Serie[]>([]);
 
@@ -36,7 +39,7 @@ export const Favorites = ({ movies, series, setMovies, setSeries }: Props) => {
 
     setFavoritesMovies(favoritesListMovies);
     setFavoritesSeries(favoritesListSeries);
-  }, []);
+  }, [favoritesMovies, favoritesSeries]);
 
   return (
     <C.Container>

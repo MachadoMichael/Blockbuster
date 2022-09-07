@@ -37,5 +37,7 @@ export const searchMovie = async (movies: Movie[], search: string) => {
       });
     }
   });
+  console.log('searchListMOVIES')
+  console.log(searchList)
   return searchList;
 };

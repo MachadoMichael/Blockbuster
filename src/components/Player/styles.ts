@@ -19,23 +19,14 @@ export const Info = styled.div`
   background-color: black;
   display: flex;
   justify-content: center;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   padding: 1%;
   box-shadow: 2px 2px 10px rgb(0, 0, 0);
 `;
 
-export const Screen = styled.iframe<{ display: string }>`
-  display: ${(props) => props.display};
-  height: 80%;
-  width: 100%;
-  background-color: black;
-  border: none;
-  border-radius: 5px;
-`;
-export const ScreenBackground = styled.div<{ display: string }>`
-  display: ${(props) => props.display};
+export const Screen = styled.iframe`
+  display: flex;
   height: 80%;
   width: 100%;
   background-color: black;
@@ -43,13 +34,35 @@ export const ScreenBackground = styled.div<{ display: string }>`
   border-radius: 5px;
 `;
 
-export const SeasonsBackground = styled.div``;
-
-export const Season = styled.div`
-  background-color: brown;
+export const BackgroundButtons = styled.div`
+  display: flex;
+  background-color: rgb(0, 40, 150);
   width: 30%;
+  height: 60%;
+  margin: 5% 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  text-align: center;
+`;
+
+export const BoxButton = styled.div`
+  background-color: rgb(250, 180, 0);
+  width: 12vw;
   height: 30px;
-  border: 1px solid wheat;
+  border: 1px solid black;
+  box-shadow: 3px 3px 5px black;
+  color: white;
+  font-weight: bolder;
+  text-shadow: 1px 1px 1px black;
+  margin-top: 1%;
+  transition: 0.3s;
+  border-radius: 5px;
+  &:hover {
+    background-color: black;
+    cursor: pointer;
+  }
 `;
 
 export const DataMovie = styled.div`

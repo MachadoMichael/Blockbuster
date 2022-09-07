@@ -6,7 +6,7 @@ import { Showcase } from "../Showcase";
 import { Serie } from "../../types/Serie";
 
 type Props = {
-  dataBase: Movie[];
+  dataBase: Movie[] | Serie[];
   setDataBase:
     | React.Dispatch<React.SetStateAction<Movie[]>>
     | React.Dispatch<React.SetStateAction<Serie[]>>;
@@ -14,8 +14,6 @@ type Props = {
 
 export const Showroom = ({ dataBase, setDataBase }: Props) => {
   const [unReleased, setUnReleased] = useState<Movie[] | Serie[]>([]);
-  const [released, setReleased] = useState<Movie[] | Serie[]>([]);
-  const [previewMode, setPreviewMode] = useState(false);
   const [filter, setFilter] = useState("all");
   const [filtered, setFiltered] = useState<Movie[] | Serie[]>([]);
 
@@ -32,92 +30,60 @@ export const Showroom = ({ dataBase, setDataBase }: Props) => {
 
       return unReleased;
     });
-    setReleased(released);
     setUnReleased(unReleased);
     setFiltered(dataBase);
   }, [dataBase]);
 
   const filterMovies = () => {
-    if (filter === "all") {
-      setFiltered(dataBase);
-    } else {
-      let arrayFiltered: Movie[] = [];
-      dataBase.map((item, index) => {
-        if (item.genre === filter) arrayFiltered.push(item);
-        return "";
-      });
-      setFiltered(arrayFiltered);
-    }
+    let arrayFiltered: Movie[] | Serie[] = [];
+    dataBase.map((item, index) => {
+      if (filter === "all" && item.release < 2023) {
+        arrayFiltered.push(item);
+        setFiltered(arrayFiltered);
+      }
+
+      if (item.genre === filter && item.release < 2023) {
+        arrayFiltered.push(item);
+        setFiltered(arrayFiltered);
+      } else {
+        console.log("IHI");
+      }
+    });
   };
 
   return (
     <C.Container>
-      {previewMode === false ? (
-        <Releases unReleased={unReleased}></Releases>
-      ) : (
-        <C.FilterBox>
-          <C.GenreFilter>
-            <C.Form
-              onSubmit={(e) => {
-                e.preventDefault();
-                filterMovies();
-              }}
-            >
-              <C.SelectFilter
-                value={filter}
-                onChange={(text) => setFilter(text.target.value)}
-              >
-                <C.Option value="action">Ação</C.Option>
-                <C.Option value="fantasy">Fantasia</C.Option>
-                <C.Option value="comedy">Comédia</C.Option>
-                <C.Option value="sciencefiction">Ficção Cientifica</C.Option>
-                <C.Option value="romance">Romance</C.Option>
-                <C.Option value="horror">Terror</C.Option>
-              </C.SelectFilter>
-              <C.Button type="submit">FILTRAR</C.Button>
-            </C.Form>
-          </C.GenreFilter>
-
-          <Showcase
-            marginBox={[88, 110]}
-            height={54}
-            data={filtered}
-            setDataBase={setFiltered}
-            title="Movies"
-          ></Showcase>
-        </C.FilterBox>
-      )}
-      <C.MovieSwiper margin={previewMode === false ? 0 : 3}>
-        <C.Subtitle display="flex">
-          {previewMode === false ? "VER MAIS" : "TODOS"}
-          {previewMode === false ? (
-            <C.Arrow
-              onClick={() => {
-                previewMode === false
-                  ? setPreviewMode(true)
-                  : setPreviewMode(false);
-              }}
-            >
-              ⏬
-            </C.Arrow>
-          ) : (
-            <C.Arrow
-              onClick={() => {
-                previewMode === true
-                  ? setPreviewMode(false)
-                  : setPreviewMode(true);
-              }}
-            >
-              ⏫
-            </C.Arrow>
-          )}
-        </C.Subtitle>
+      <Releases unReleased={unReleased}></Releases>
+      <C.SubtitleBackground display="flex" margin={0}>
+        <C.Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            filterMovies();
+          }}
+        >
+          <C.SelectFilter
+            value={filter}
+            onChange={(text) => setFilter(text.target.value)}
+          >
+            <C.Option value="all">Todos</C.Option>
+            <C.Option value="action">Ação</C.Option>
+            <C.Option value="comedy">Comédia</C.Option>
+            <C.Option value="fantasy">Fantasia</C.Option>
+            <C.Option value="horror">Terror</C.Option>
+            <C.Option value="romance">Romance</C.Option>
+            <C.Option value="sciencefiction">Ficção Cientifica</C.Option>
+          </C.SelectFilter>
+          <C.Button type="submit">FILTRAR</C.Button>
+        </C.Form>
+      </C.SubtitleBackground>
+      <C.MovieSwiper margin={0}>
         <Showcase
+          sliderPerViews={6}
           marginBox={[50, 62]}
           height={30}
-          data={released}
+          width={100}
+          data={filtered}
           setDataBase={setDataBase}
-          title="Movies"
         ></Showcase>
       </C.MovieSwiper>
     </C.Container>

@@ -22,7 +22,7 @@ export const Image = styled.div<{ url?: string }>`
   background-repeat: no-repeat;
   background-position: center;
   height: 80%;
-  width: 205px;
+  width: 100%;
 `;
 
 export const Controllers = styled.div`

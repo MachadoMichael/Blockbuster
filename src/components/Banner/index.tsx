@@ -13,29 +13,19 @@ type Props = {
 
 export const Banner = ({ list, setList }: Props) => {
   const [modal, setModal] = useState("none");
-
   const [infoData, setInfoData] = useState<Serie | Movie>({
-    season1: undefined,
-    season2: undefined,
-    season3: undefined,
-    season4: undefined,
-    season5: undefined,
-    season6: undefined,
-    season7: undefined,
-    season8: undefined,
-    season9: undefined,
-    season10: undefined,
+    seasons: {},
     description: "description",
     image: "image",
     name: "name",
-    type: "serie",
+    type: "type",
     url: "url",
     release: 2014,
     genre: "genre",
     favorite: false,
   });
 
-  const item = list.map((item, index) => {
+  const List = list.map((item, index) => {
     return (
       <C.Banner key={index}>
         <C.Image url={item.image}></C.Image>
@@ -57,7 +47,6 @@ export const Banner = ({ list, setList }: Props) => {
               } else {
                 item.favorite = false;
                 let newlist = list.filter((item) => item.favorite === true);
-                setList([...newlist]);
               }
             }}
             background={
@@ -79,7 +68,7 @@ export const Banner = ({ list, setList }: Props) => {
         infoData={infoData}
         setInfoData={setInfoData}
       ></Player>
-      {item}
+      {List}
     </C.Container>
   );
 };
