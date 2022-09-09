@@ -17,7 +17,7 @@ export const Title = styled.h1`
   margin-top: 1%;
 `;
 
-export const Favorites = styled.div`
+export const SearchBox = styled.div`
   display: block;
   overflow-x: auto;
   background-color: rgba(5, 5, 5, 0.8);

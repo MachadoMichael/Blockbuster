@@ -39,17 +39,40 @@ export const Search = ({ movies, series, setMovies, setSeries }: Props) => {
       ) : (
         <div></div>
       )}
-      <C.Favorites>
-        <Banner list={searchMovies} setList={setSearchMovies}></Banner>
-      </C.Favorites>
+
+      <C.SearchBox>
+        <Banner
+          movies={movies}
+          setMovies={setMovies}
+          series={series}
+          setSeries={setSeries}
+          list={searchMovies}
+          setList={setSearchMovies}
+        ></Banner>
+      </C.SearchBox>
+
       {searchSeries.length > 0 ? (
         <C.Title>{query !== "" ? `Séries com "${query}"` : ""}</C.Title>
       ) : (
         <div></div>
       )}
-      <C.Favorites>
-        <Banner list={searchSeries} setList={setSearchSeries}></Banner>
-      </C.Favorites>
+
+      {searchMovies.length === 0 && searchSeries.length === 0 ? (
+        <C.Title>Nenhum resultado encontrado para "{query}"</C.Title>
+      ) : (
+        <div></div>
+      )}
+
+      <C.SearchBox>
+        <Banner
+          movies={movies}
+          setMovies={setMovies}
+          series={series}
+          setSeries={setSeries}
+          list={searchSeries}
+          setList={setSearchSeries}
+        ></Banner>
+      </C.SearchBox>
     </C.Container>
   );
 };

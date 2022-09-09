@@ -18,41 +18,56 @@ export const Favoritespage = ({
 }: Props) => {
   const [favoritesMovies, setFavoritesMovies] = useState<Movie[]>([]);
   const [favoritesSeries, setFavoritesSeries] = useState<Serie[]>([]);
+  const [readFavorites, setReadFavorites] = useState(0);
 
   useEffect(() => {
     let favoritesListMovies: Movie[] = [];
     let favoritesListSeries: Serie[] = [];
 
-    movies.map((item, index) => {
-      if (item.favorite === true) {
-        favoritesListMovies.push(item);
+    movies.forEach((movie) => {
+      if (movie.favorite === true) {
+        favoritesListMovies.push(movie);
       }
-      return favoritesListMovies;
+      setFavoritesMovies(favoritesListMovies);
     });
-
-    series.map((item, index) => {
-      if (item.favorite === true) {
-        favoritesListSeries.push(item);
+    series.forEach((serie) => {
+      if (serie.favorite === true) {
+        favoritesListSeries.push(serie);
       }
-      return favoritesListSeries;
+      setFavoritesSeries(favoritesListSeries);
     });
-
-    setFavoritesMovies(favoritesListMovies);
-    setFavoritesSeries(favoritesListSeries);
-  }, [favoritesMovies, favoritesSeries]);
+  }, [readFavorites]);
 
   return (
     <C.Container>
       <C.Subtitle>SEUS FILMES FAVORITOS</C.Subtitle>
       <C.Favorites>
         <C.BannerPainel>
-          <Banner list={favoritesMovies} setList={setFavoritesMovies}></Banner>
+          <Banner
+            movies={movies}
+            setMovies={setMovies}
+            series={series}
+            setSeries={setSeries}
+            list={favoritesMovies}
+            setList={setFavoritesMovies}
+            readFavorites={readFavorites}
+            setReadFavorites={setReadFavorites}
+          ></Banner>
         </C.BannerPainel>
       </C.Favorites>
       <C.Subtitle>SUAS SÉRIES FAVORITAS</C.Subtitle>
       <C.Favorites>
         <C.BannerPainel>
-          <Banner list={favoritesSeries} setList={setFavoritesSeries}></Banner>
+          <Banner
+            movies={movies}
+            setMovies={setMovies}
+            series={series}
+            setSeries={setSeries}
+            list={favoritesSeries}
+            setList={setFavoritesSeries}
+            readFavorites={readFavorites}
+            setReadFavorites={setReadFavorites}
+          ></Banner>
         </C.BannerPainel>
       </C.Favorites>
     </C.Container>

@@ -2,16 +2,31 @@ import * as C from "./styles";
 import { Movie } from "../../types/Movie";
 import { Serie } from "../../types/Serie";
 import { Player } from "../Player";
-import { useState } from "react";
+import React, { useState } from "react";
 
 type Props = {
   list: Movie[] | Serie[];
   setList:
     | React.Dispatch<React.SetStateAction<Movie[]>>
     | React.Dispatch<React.SetStateAction<Serie[]>>;
+  movies: Movie[];
+  series: Serie[];
+  setMovies: React.Dispatch<React.SetStateAction<Movie[]>>;
+  setSeries: React.Dispatch<React.SetStateAction<Serie[]>>;
+  readFavorites?: number;
+  setReadFavorites?: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export const Banner = ({ list, setList }: Props) => {
+export const Banner = ({
+  list,
+  movies,
+  series,
+  setList,
+  setMovies,
+  setSeries,
+  readFavorites,
+  setReadFavorites,
+}: Props) => {
   const [modal, setModal] = useState("none");
   const [infoData, setInfoData] = useState<Serie | Movie>({
     seasons: {},
@@ -42,11 +57,35 @@ export const Banner = ({ list, setList }: Props) => {
 
           <C.Button
             onClick={() => {
+              setReadFavorites ? setReadFavorites(1) : console.log();
               if (item.favorite === false) {
-                item.favorite = true;
+                movies.forEach((movie) => {
+                  if (movie.name === item.name) {
+                    movie.favorite = true;
+                  }
+                });
+                series.forEach((serie) => {
+                  if (serie.name === item.name) {
+                    serie.favorite = true;
+                  }
+                });
+                let newList: Movie[] | Serie[] = [...list];
+                newList[index].favorite = true;
+                setList(newList);
               } else {
-                item.favorite = false;
-                let newlist = list.filter((item) => item.favorite === true);
+                movies.forEach((movie) => {
+                  if (movie.name === item.name) {
+                    movie.favorite = false;
+                  }
+                });
+                series.forEach((serie) => {
+                  if (serie.name === item.name) {
+                    serie.favorite = false;
+                  }
+                });
+                let newList: Movie[] | Serie[] = [...list];
+                newList[index].favorite = false;
+                setList(newList);
               }
             }}
             background={
@@ -60,6 +99,7 @@ export const Banner = ({ list, setList }: Props) => {
       </C.Banner>
     );
   });
+
   return (
     <C.Container>
       <Player
