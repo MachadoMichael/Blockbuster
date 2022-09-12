@@ -26,7 +26,7 @@ export const Homepage = ({ dataBase, setDataBase }: Props) => {
   });
 
   useEffect(() => {
-    let random = parseInt((Math.random() * 10).toFixed(1));
+    let random = parseInt((Math.random() * 30).toFixed(1));
     setSelectMovie(random);
   }, []);
 

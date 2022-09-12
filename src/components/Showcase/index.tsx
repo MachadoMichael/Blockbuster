@@ -15,7 +15,7 @@ type Props = {
   setDataBase?:
     | React.Dispatch<React.SetStateAction<Movie[]>>
     | React.Dispatch<React.SetStateAction<Serie[]>>;
-  setSelectMovie?: React.Dispatch<React.SetStateAction<number>> | any;
+  setSelectMovie?: React.Dispatch<React.SetStateAction<number>>;
   height: number;
   width: number;
   marginBox: number[];
@@ -58,7 +58,9 @@ export const Showcase = ({
         <C.Image
           onClick={(e) => {
             if (e.currentTarget === e.target) {
-              setSelectMovie(index);
+              setSelectMovie
+                ? setSelectMovie(index)
+                : console.log("Não tem filme selecionado");
             }
           }}
           url={item.image}

@@ -1,6 +1,6 @@
 import * as C from "./styles";
 import { Movie } from "../../types/Movie";
-import { Releases } from "../Releases";
+import { UnReleases } from "../UnReleases";
 import { useState, useEffect } from "react";
 import { Showcase } from "../Showcase";
 import { Serie } from "../../types/Serie";
@@ -46,14 +46,14 @@ export const Showroom = ({ dataBase, setDataBase }: Props) => {
         arrayFiltered.push(item);
         setFiltered(arrayFiltered);
       } else {
-        console.log("IHI");
+        console.log("error");
       }
     });
   };
 
   return (
     <C.Container>
-      <Releases unReleased={unReleased}></Releases>
+      <UnReleases unReleased={unReleased}></UnReleases>
       <C.SubtitleBackground display="flex" margin={0}>
         <C.Form
           onSubmit={(e) => {

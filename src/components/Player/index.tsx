@@ -92,7 +92,11 @@ export const Player = ({ modal, setModal, infoData, setInfoData }: Props) => {
 
           {display === "episodes" ? (
             <C.BackgroundButtons>
-              {estruturaEpisodes !== [] ? estruturaEpisodes : <div></div>}
+              {estruturaEpisodes !== undefined ? (
+                estruturaEpisodes
+              ) : (
+                <div></div>
+              )}
             </C.BackgroundButtons>
           ) : (
             <div></div>
